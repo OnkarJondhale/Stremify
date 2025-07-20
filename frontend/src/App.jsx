@@ -47,7 +47,7 @@ function App() {
         const response = await isAuthenticated();
         if (ignore) return;
         if (response.networkError) {
-          toast.error("Can't authenticate you at this moment, please try again later");
+          toast.error("Slow network connection detected, Can't authenticate you at this moment, please try again later");
         } else if (response.success === false && response.isValid === false) {
           dispatch(clearUserData());
           localStorage.removeItem("user");
