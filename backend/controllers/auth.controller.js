@@ -101,8 +101,10 @@ const signup = async (req, res) => {
         });
 
         return res.cookie("token", jwtToken, {
-            maxAge: 7 * 24 * 60 * 60 * 1000,
-            httpOnly: true,
+             maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+    httpOnly: true,
+    secure: true,                   // required for HTTPS
+    sameSite: 'None' 
         }).status(201).json({
             success: true,
             message: "User created successfully",
@@ -152,13 +154,16 @@ const login = async (req, res) => {
             userExist.password = undefined;
 
             return res.cookie("token", jwtToken, {
-                maxAge: 7 * 24 * 60 * 60 * 1000,
-                httpOnly: true
-            }).status(200).json({
-                success: true,
-                message: "User login successful",
-                data: userExist
-            })
+    maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+    httpOnly: true,
+    secure: true,                   // required for HTTPS
+    sameSite: 'None'                // required for cross-origin
+}).status(200).json({
+    success: true,
+    message: "User login successful",
+    data: userExist
+});
+
         }
 
         return res.status(400).json({
