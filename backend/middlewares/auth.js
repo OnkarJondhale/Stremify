@@ -9,6 +9,7 @@ const auth = async (req,res,next) => {
     {
         const token = req.cookies.token;
 
+        console.log("Cokies are : ",req.cookies);
         console.log("Token is ",token);
         if(!token) {
             return res.status(401).json({
