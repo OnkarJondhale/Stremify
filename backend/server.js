@@ -40,7 +40,7 @@ app.use("/api/user",userRouter);
 app.use("/api/chat",chatRouter);
 
 app.get("/",(req,res)=>{
-    res.send("Hello,World!");
+    res.send("Hello,World!->Fix cookies");
 })
 
 app.listen(PORT,()=>{
