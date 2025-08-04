@@ -16,9 +16,20 @@ dotenv.config();
 
 const app = express();
 
+const allowedOrigins = [
+  'http://localhost:5173',
+  'https://stremify-silk.vercel.app',
+];
+
 const corsOptions = {
-  origin: ['http://localhost:5173', 'https://stremify-silk.vercel.app'],
-  credentials: true
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true,
 };
 
 app.use(cors(corsOptions));
@@ -27,6 +38,7 @@ app.options('*', cors(corsOptions));
 
 app.use(express.json());
 app.use(cookieParser());
+
 app.use(fileUpload({
   useTempFiles: true,
   tempFileDir: '/tmp/'
@@ -41,7 +53,7 @@ app.use('/api/user', userRouter);
 app.use('/api/chat', chatRouter);
 
 app.get('/', (req, res) => {
-  res.send('Hello, World! → Fix cookies');
+  res.send('Hello, World! → Cookies should now work cross-origin 🚀');
 });
 
 const PORT = process.env.PORT || 5000;
