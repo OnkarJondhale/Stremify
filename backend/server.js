@@ -33,7 +33,6 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
-
 app.options('*', cors(corsOptions));
 
 app.use(express.json());
@@ -56,7 +55,4 @@ app.get('/', (req, res) => {
   res.send('Hello, World! → Cookies should now work cross-origin 🚀');
 });
 
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log(`Server started successfully on port ${PORT}`);
-});
+module.exports = app;
